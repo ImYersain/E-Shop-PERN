@@ -15,7 +15,7 @@ class DeviceController {
 
             if(info) {
                 info = JSON.parse(info)
-                info.array.forEach(item => {
+                info.forEach(item => {
                     DeviceInfo.create({
                         title: item.title,
                         description: item.description,
@@ -31,29 +31,29 @@ class DeviceController {
     }
  
     async getAll(req, res) {
-        let {brandId, typeId, limit, page} = req.query
+        let {brandId, typeId, limit, page} = req.query // example : /lor/creatures/hobbit?familyname=Baggins&home=Shire
         page = page || 1
         limit = limit || 9
-        let offset = page * limit - limit
+        let offset = page * limit - limit //если 2 страница, то первые 9 надо пропустить, если 3 страница то первые 18 надо пропустить.  офсет - отступ
         let devices
         if(!brandId && !typeId) {
-            devices = await Device.findAll({limit, offset})
+            devices = await Device.findAndCountAll({limit, offset})
         }
         if(brandId && !typeId) {
-            devices = await Device.findAll({where: {brandId}, limit, offset})
+            devices = await Device.findAndCountAll({where: {brandId}, limit, offset})
         }
         if(!brandId && typeId) {
-            devices = await Device.findAll({where: {typeId}, limit, offset})
+            devices = await Device.findAndCountAll({where: {typeId}, limit, offset})
         }
         if(brandId && typeId) {
-            devices = await Device.findAll({where: {brandId, typeId}, limit, offset})
+            devices = await Device.findAndCountAll({where: {brandId, typeId}, limit, offset})
         }
 
         return res.json(devices)
     }
 
     async getOne(req, res) {
-        const {id} = req.params
+        const {id} = req.params   //  exapmle:  /lor/creatures/:name
         const device = await Device.findOne(
             {
                 where: {id},
