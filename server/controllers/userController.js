@@ -25,7 +25,7 @@ class UserController {
         const basket = await Basket.create({userId: user.id})
         const token = generateJwt(user.id, user.email, user.role)
 
-        return res.json(token)
+        return res.json({token})
     }
 
     async login(req, res, next) {
@@ -42,17 +42,13 @@ class UserController {
         }
         const token = generateJwt(user.id, user.email, user.role)
 
-        return res.json(token)
+        return res.json({token})
     }
 
-    
-    async check(req, res, next) {
-        const {id} = req.query;
-        if(!id){
-            return next(ApiError.badRequest('No id entered'))
-        }
 
-        res.json(id)
+    async check(req, res, next) {
+       const token = await generateJwt(req.user.email, req.user.password, req.user.role)
+        res.json({token})
     }
 }
 
