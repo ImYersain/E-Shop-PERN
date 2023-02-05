@@ -1,11 +1,39 @@
-import React from "react";
+import React, { useState, useMemo, useContext } from "react";
 import { Container, Form, Card, Button } from "react-bootstrap";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { REGISTRATION_ROUTE } from "./../utils/consts";
-import { LOGIN_ROUTE } from "../utils/consts";
+import { LOGIN_ROUTE, SHOP_ROUTE } from '../utils/consts';
+import { registration, login } from "../api/userAPI";
+import { observer } from "mobx-react-lite";
+import { Context, IContextProviderProps } from '../index';
 
-const Auth = () => {
+const Auth = observer(() => {
   const isLogin = useLocation().pathname === LOGIN_ROUTE;
+  const context = useContext<IContextProviderProps | null>(Context);
+  const userStore = context?.user;
+  const navigate = useNavigate();
+
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const click = async () => {
+    try {
+      let user;
+
+      if (isLogin) { //если страница логина то логин, иначе регистрация
+        const user = await login({ email, password });
+      } else {
+        const user = await registration({ email, password });
+      }
+
+      userStore?.setUser(user);
+      userStore?.setIsAuth(true);
+      navigate(SHOP_ROUTE);
+
+    } catch (e:any) {
+      alert(e.response.data.message)
+    }
+  };
 
   return (
     <Container
@@ -18,12 +46,14 @@ const Auth = () => {
           <Form.Control
             className="mt-3"
             placeholder="Enter your email..."
-            value={""}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
           />
           <Form.Control
             className="mt-3"
             placeholder="Enter your password..."
-            value={""}
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             type="password"
           />
           <Form className="d-flex justify-content-between mt-3 pl-3 pr-3">
@@ -39,12 +69,14 @@ const Auth = () => {
               </div>
             )}
 
-            <Button variant={"outline-success"}>{isLogin? 'Login' : 'Register'}</Button>
+            <Button onClick={() => click()} variant={"outline-success"}>
+              {isLogin ? "Login" : "Register"}
+            </Button>
           </Form>
         </Form>
       </Card>
     </Container>
   );
-};
+});
 
 export default Auth;

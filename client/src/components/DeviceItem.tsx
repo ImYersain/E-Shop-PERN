@@ -1,4 +1,4 @@
-import React from "react";
+import React,{FC} from "react";
 import { useNavigate } from "react-router-dom";
 import { Col, Image } from "react-bootstrap";
 import { IDevice } from "../store/DeviceStore";
@@ -10,7 +10,7 @@ interface IDeviceItemProps {
   device: IDevice;
 }
 
-export const DeviceItem = ({ device }: IDeviceItemProps) => {
+export const DeviceItem:FC<IDeviceItemProps> = ({ device }) => {
     const navigate = useNavigate();
 
   return (

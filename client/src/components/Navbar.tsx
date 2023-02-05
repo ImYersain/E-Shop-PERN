@@ -1,11 +1,8 @@
 import React, { useContext } from "react";
 import { Context, IContextProviderProps } from '../index';
 import Container from "react-bootstrap/Container";
-//import Nav from "react-bootstrap/Nav";
-//import Navbar from "react-bootstrap/Navbar";
 import { NavLink } from "react-router-dom";
 import { SHOP_ROUTE, LOGIN_ROUTE } from '../utils/consts';
-//import Button from 'react-bootstrap/Button';
 import { Button, Navbar, Nav } from "react-bootstrap";
 import { observer } from "mobx-react-lite";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +15,7 @@ export const NavBar = observer(() => {
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container>
-        <NavLink style={{ marginLeft: "10px", color: "white" }} to={SHOP_ROUTE}>
+        <NavLink style={{ marginLeft: "10px", color: "white", outline: "none" }} to={SHOP_ROUTE}>
           BuyDevice
         </NavLink>
         {context?.user.isAuth ? (
