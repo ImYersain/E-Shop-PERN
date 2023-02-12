@@ -10,6 +10,7 @@ export interface IDevice {
   price: number;
   raiting: number;
   img: string;
+  info?: [{id:number, title: string, description: string}];
 }
 
 export default class DeviceStore {
@@ -20,60 +21,10 @@ export default class DeviceStore {
   _selectedBrand: ITypeBrand;
 
   constructor() {
-    this._types = [
-      { id: 1, name: "Notebook" },
-      { id: 2, name: "Smartphone" },
-      { id: 3, name: "TV" },
-      { id: 4, name: "Watch" },
-    ];
-    this._brands = [
-      { id: 1, name: "Apple" },
-      { id: 2, name: "Samsung" },
-      { id: 3, name: "Huawei" },
-      { id: 4, name: "Motorolla" },
-    ];
-    this._devices = [
-      {
-        id: 1,
-        name: "Iphone 13",
-        price: 1000,
-        raiting: 5,
-        img:
-          "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-green?wid=2560&hei=1440&fmt=p-jpg&qlt=80&.v=1656712887888",
-      },
-      {
-        id: 2,
-        name: "Iphone 13",
-        price: 1000,
-        raiting: 5,
-        img:
-          "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-green?wid=2560&hei=1440&fmt=p-jpg&qlt=80&.v=1656712887888",
-      },
-      {
-        id: 3,
-        name: "Iphone 13",
-        price: 1000,
-        raiting: 5,
-        img:
-          "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-green?wid=2560&hei=1440&fmt=p-jpg&qlt=80&.v=1656712887888",
-      },
-      {
-        id: 4,
-        name: "Iphone 13",
-        price: 1000,
-        raiting: 5,
-        img:
-          "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-green?wid=2560&hei=1440&fmt=p-jpg&qlt=80&.v=1656712887888",
-      },
-      {
-        id: 5,
-        name: "Iphone 13",
-        price: 1000,
-        raiting: 5,
-        img:
-          "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-finish-select-202207-6-1inch-green?wid=2560&hei=1440&fmt=p-jpg&qlt=80&.v=1656712887888",
-      },
-    ];
+    this._types = [];
+    this._brands = [];
+    this._devices = [];
+
     this._selectedType = {};
     this._selectedBrand = {};
     makeAutoObservable(this);
@@ -83,8 +34,8 @@ export default class DeviceStore {
     this._types = types;
   }
 
-  setBrands(brand: ITypeBrand[]) {
-    this._brands = brand;
+  setBrands(brands: ITypeBrand[]) {
+    this._brands = brands;
   }
 
   setDevices(devices: IDevice[]) {

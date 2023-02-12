@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const $host = axios.create({
-    baseURL: process.env.REACT_APP_API_URL 
+    baseURL: process.env.REACT_APP_API_URL //localhost:5000
 })
 
 const $authHost = axios.create({

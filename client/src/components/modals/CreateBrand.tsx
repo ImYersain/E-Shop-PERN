@@ -1,7 +1,9 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import { Form, Modal } from 'react-bootstrap';
 import { Button } from 'react-bootstrap';
 import { Context } from "../..";
+import { IContextProviderProps } from '../../index';
+import { createBrand } from '../../api/deviceAPI';
 
 
 interface IPropsCreateBrand {
@@ -10,8 +12,14 @@ interface IPropsCreateBrand {
 }
 
 export const CreateBrand:FC<IPropsCreateBrand> = ({show, onHide}) => {
-    const deviceStore = useContext(Context);
-    const device = deviceStore?.device;
+    const [value, setValue] = useState('');
+
+    const onAddBrand = () => {
+        createBrand({name: value}).then(data => {
+            setValue('');
+            if(onHide) onHide();
+        })
+    }
 
   return (
     <Modal size="lg" centered onHide={onHide} show={show}>
@@ -22,7 +30,7 @@ export const CreateBrand:FC<IPropsCreateBrand> = ({show, onHide}) => {
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control placeholder={"Enter name of type"} />
+          <Form.Control value={value} onChange={(e:any) => setValue(e.target.value)} placeholder={"Enter name of type"} />
         </Form>
       </Modal.Body>
       <Modal.Footer>
@@ -34,9 +42,7 @@ export const CreateBrand:FC<IPropsCreateBrand> = ({show, onHide}) => {
         </Button>
         <Button
           variant={"outlined-success"}
-          onClick={() => {
-            console.log();
-          }}
+          onClick={() => onAddBrand()}
         >
           Add
         </Button>

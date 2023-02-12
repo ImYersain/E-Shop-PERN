@@ -12,6 +12,12 @@ export const NavBar = observer(() => {
   const context = useContext<IContextProviderProps | null>(Context);
   const navigate = useNavigate();
 
+  const logOut = () => {
+    context?.user.setUser({});
+    context?.user.setIsAuth(false)
+
+  }
+
   return (
     <Navbar sticky="top" bg="dark" variant="dark">
       <Container>
@@ -26,7 +32,7 @@ export const NavBar = observer(() => {
             <Button variant="outline-light" className="ml-4" onClick={() => navigate(ADMIN_ROUTE)}>
               Admin Panel
             </Button>
-            <Button variant="outline-light" onClick={() => navigate(LOGIN_ROUTE)}>Log out</Button>
+            <Button variant="outline-light" onClick={() => logOut()}>Log out</Button>
           </Nav>
         ) : (
           <Nav
@@ -35,7 +41,7 @@ export const NavBar = observer(() => {
           >
             <Button
               variant="outline-light"
-              onClick={() => context?.user.setIsAuth(true)}
+              onClick={() => navigate(LOGIN_ROUTE)}
 
             >
               Authorization

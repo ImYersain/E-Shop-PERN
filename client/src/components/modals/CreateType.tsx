@@ -1,5 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import { Modal, Button, Form } from "react-bootstrap";
+import { createType } from './../../api/deviceAPI';
+import { ITypeBrand } from '../../store/DeviceStore';
 
 interface IPropsCreateType {
     show?: boolean;
@@ -7,6 +9,15 @@ interface IPropsCreateType {
 }
 
 export const CreateType:FC<IPropsCreateType> = ({show, onHide}) => {
+  const [value, setValue] = useState<string>('');
+
+  const addType = () => {
+    createType({ name: value }).then(data => {
+      setValue('')
+      if(onHide) onHide();
+    });
+  }
+  
   return (
     <Modal
       size="lg"
@@ -21,12 +32,12 @@ export const CreateType:FC<IPropsCreateType> = ({show, onHide}) => {
       </Modal.Header>
       <Modal.Body>
           <Form>
-              <Form.Control placeholder={'Enter name of type'} />
+              <Form.Control value={value} onChange={(e:any) => setValue(e.target.value)} placeholder={'Enter name of type'} />
           </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button variant={'outlined-danger'} onClick={onHide}>Close</Button>
-        <Button variant={'outlined-success'} onClick={() => {console.log()}}>Add</Button>
+        <Button variant={'outlined-success'} onClick={addType}>Add</Button>
       </Modal.Footer>
     </Modal>
   );

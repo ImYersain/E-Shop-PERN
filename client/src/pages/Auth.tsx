@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useContext } from "react";
+import React, { useState, useContext } from "react";
 import { Container, Form, Card, Button } from "react-bootstrap";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { REGISTRATION_ROUTE } from "./../utils/consts";
@@ -21,12 +21,14 @@ const Auth = observer(() => {
       let user;
 
       if (isLogin) { //если страница логина то логин, иначе регистрация
-        const user = await login({ email, password });
+        user = await login({ email, password });
       } else {
-        const user = await registration({ email, password });
+        user = await registration({ email, password });
       }
 
-      userStore?.setUser(user);
+      if(user) {
+        userStore?.setUser(user);
+      }
       userStore?.setIsAuth(true);
       navigate(SHOP_ROUTE);
 

@@ -17,14 +17,24 @@ const App = observer(() => {
   useEffect(() => {
     check()
       .then(() => {
-        userStore?.setUser(true);
+        userStore?.setUser({});
         userStore?.setIsAuth(true);
       })
       .finally(() => setLoading(false));
   }, []);
 
   if (loading) {
-    return <Spinner animation={"grow"} />;
+    return (
+     <Container>
+        <Spinner
+          animation="border"
+          role="status"
+          style={{ width: "4rem", height: "4rem" }}
+        >
+          <span className="visually-hidden">Loading...</span>
+        </Spinner>
+        </Container>
+    );
   }
 
   return (

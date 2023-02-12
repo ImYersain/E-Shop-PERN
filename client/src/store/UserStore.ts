@@ -1,5 +1,10 @@
 import { makeAutoObservable } from "mobx";
 
+interface IUser {
+    email?: string,
+    password?: string,
+    role?: string
+}
 
 export default class UserStore {
     _user: {};
@@ -11,7 +16,7 @@ export default class UserStore {
         makeAutoObservable(this)
     }
 
-    setUser(user: any){
+    setUser(user: IUser){
         this._user = user
     }
 
