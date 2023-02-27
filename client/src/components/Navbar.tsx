@@ -14,8 +14,8 @@ export const NavBar = observer(() => {
 
   const logOut = () => {
     context?.user.setUser({});
-    context?.user.setIsAuth(false)
-
+    context?.user.setIsAuth(false);
+    localStorage.removeItem('token');
   }
 
   return (

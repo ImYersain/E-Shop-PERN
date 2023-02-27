@@ -23,25 +23,25 @@ export const CreateBrand:FC<IPropsCreateBrand> = ({show, onHide}) => {
 
   return (
     <Modal size="lg" centered onHide={onHide} show={show}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton closeLabel=''>
         <Modal.Title id="contained-modal-title-vcenter">
           Add new brand
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form>
-          <Form.Control value={value} onChange={(e:any) => setValue(e.target.value)} placeholder={"Enter name of type"} />
+          <Form.Control value={value} onChange={(e:any) => setValue(e.target.value)} placeholder={"Enter name of brand"} />
         </Form>
       </Modal.Body>
       <Modal.Footer>
         <Button
-          variant={"outlined-danger"}
+          variant={"outline-danger"}
           onClick={onHide}
         >
           Close
         </Button>
         <Button
-          variant={"outlined-success"}
+          variant={"outline-success"}
           onClick={() => onAddBrand()}
         >
           Add

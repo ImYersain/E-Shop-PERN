@@ -25,7 +25,7 @@ const App = observer(() => {
 
   if (loading) {
     return (
-     <Container>
+      <Container>
         <Spinner
           animation="border"
           role="status"
@@ -33,7 +33,7 @@ const App = observer(() => {
         >
           <span className="visually-hidden">Loading...</span>
         </Spinner>
-        </Container>
+      </Container>
     );
   }
 

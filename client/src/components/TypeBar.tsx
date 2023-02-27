@@ -9,6 +9,15 @@ export const TypeBar = observer(() => {
   const context = useContext<IContextProviderProps | null>(Context);
   const deviceStore = context?.device;
 
+  const selectTypeHandler = (type: ITypeBrand) => {
+    if (type.id === deviceStore?.selectedType.id) {
+      deviceStore?.setSelectedType({});
+    } else {
+      deviceStore?.setSelectedType(type);
+      deviceStore?.setPage(1);
+    }
+  }
+
   return (
     <div>
       <ListGroup>
@@ -17,7 +26,7 @@ export const TypeBar = observer(() => {
             <ListGroup.Item
               key={type.id}
               active={type.id === deviceStore.selectedType.id}
-              onClick={() => deviceStore.setSelectedType(type)}
+              onClick={() => selectTypeHandler(type)}
               style={{cursor:'pointer'}}
             >
               {type.name}

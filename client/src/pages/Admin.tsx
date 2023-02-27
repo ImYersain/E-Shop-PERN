@@ -4,13 +4,21 @@ import { Button } from 'react-bootstrap';
 import { CreateBrand } from './../components/modals/CreateBrand';
 import { CreateType } from '../components/modals/CreateType';
 import { CreateDevice } from '../components/modals/CreateDevice';
+import {useContext} from 'react';
+import { Context, IContextProviderProps } from '../index';
+import { useNavigate } from 'react-router-dom';
+import { SHOP_ROUTE } from '../utils/consts';
 
  const Admin = ( ) => {
     const [brandVisible, setBrandVisible] = useState<boolean>(false);
     const [typeVisible, setTypeVisible] = useState<boolean>(false);
     const [deviceVisible, setDeviceVisible] = useState<boolean>(false);
+    const navigate = useNavigate();
 
+    const context = useContext<IContextProviderProps | null>(Context);
+    const userStore = context?.user;
 
+    if (!userStore?.isAuth) navigate(SHOP_ROUTE);
     return (
         <Container className='d-flex flex-column'>
             <Button variant={'outline-dark'} onClick={() => setTypeVisible(true)} className='mt-4 p-2'>Add type</Button>

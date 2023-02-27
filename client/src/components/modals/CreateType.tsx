@@ -25,7 +25,7 @@ export const CreateType:FC<IPropsCreateType> = ({show, onHide}) => {
       onHide={onHide}
       show={show}
     >
-      <Modal.Header closeButton>
+      <Modal.Header closeButton closeLabel=''>
         <Modal.Title id="contained-modal-title-vcenter">
           Add new type
         </Modal.Title>
@@ -36,8 +36,8 @@ export const CreateType:FC<IPropsCreateType> = ({show, onHide}) => {
           </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant={'outlined-danger'} onClick={onHide}>Close</Button>
-        <Button variant={'outlined-success'} onClick={addType}>Add</Button>
+        <Button variant={'outline-danger'} onClick={onHide}>Close</Button>
+        <Button variant={"outline-success"} onClick={addType}>Add</Button>
       </Modal.Footer>
     </Modal>
   );

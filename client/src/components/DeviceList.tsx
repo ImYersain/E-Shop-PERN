@@ -4,6 +4,7 @@ import { Context, IContextProviderProps } from '../index';
 import { Form } from 'react-router-dom';
 import { DeviceItem } from './DeviceItem';
 import { Row } from 'react-bootstrap';
+import { Pages } from './Pages';
 
 export const DeviceList = observer(() => {
     const context = useContext<IContextProviderProps | null>(Context);
@@ -12,6 +13,7 @@ export const DeviceList = observer(() => {
     return (
         <Row className={"d-flex"}>
             {deviceStore?.devices.map(device => <DeviceItem key={device.id} device={device} />)}
+            <Pages />
         </Row>
     )
 })

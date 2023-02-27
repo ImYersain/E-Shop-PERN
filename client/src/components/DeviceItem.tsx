@@ -26,7 +26,7 @@ export const DeviceItem:FC<IDeviceItemProps> = ({ device }) => {
           </div>
         </div>
 
-        <div>{device.name}</div>    
+        <div>{device.name}</div>
       </Card>
     </Col>
   );
